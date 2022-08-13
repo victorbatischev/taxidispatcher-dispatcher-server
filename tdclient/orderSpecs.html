@@ -1,0 +1,34 @@
+<!--  Spec Tab's Content  -->
+<ul class="list-unstyled">
+  <li>
+    <strong>Оповещение клиента</strong>
+    : {{$ctrl.hero.SendSMSCustComment}}
+  </li>
+  <li>
+    Тар план:
+    <edit-field
+      class="editField"
+      field-value="$ctrl.hero.tariff_plan_name"
+      field-name="tariff_plan_name"
+      field-hide-value="$ctrl.hero.PR_POLICY_ID"
+      field-hide-name="PR_POLICY_ID"
+      field-type="select"
+      field-id="{{$ctrl.hero.BOLD_ID}}"
+      on-update="$ctrl.updateList({'PR_POLICY_ID': value})"
+      depends="$ctrl.depends.order_tariff_plan"
+    ></edit-field>
+  </li>
+  <li>
+    <strong>Тариф</strong>
+    : {{$ctrl.hero.tarif_name}}
+  </li>
+  <!--<li>
+    <strong>Опции</strong>
+    : {{$ctrl.hero.OPT_COMB_STR}}</li>
+  <li>
+    <strong>RemCustComment</strong>
+    : {{$ctrl.hero.RemCustComment}}</li>
+  <li>
+    <strong>INumInfo</strong>
+    : {{$ctrl.hero.INumInfo}}</li>-->
+</ul>

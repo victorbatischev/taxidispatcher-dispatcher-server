@@ -1,0 +1,184 @@
+<h5 class="bg-light text-dark">Заказы</h5>
+
+<div class="row context_injected_orders" data-ctx0="orders-state">
+  <div id="map-add-form" class="row hidden_form col-12">
+    <div class="col-6">
+      <div class="row">
+        <input placeholder="Откуда, например: Москва, Тверская улица 15"/
+        class="address-input" id="start-adr" value="Анапа, Маяковского 47" />
+        <a
+          href="#"
+          class="menuItem"
+          ng-click="$ctrl.findCoordByAdr($event, 'start-adr')"
+        >
+          Искать
+        </a>
+        <a
+          href="#"
+          class="menuItem"
+          ng-click="$ctrl.findCoordOnMap($event, 'start-adr')"
+        >
+          На карте
+        </a>
+      </div>
+      <div class="row">
+        <span id="start-adr__coords"></span>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <input
+          placeholder="Куда, например: Москва, Тверская улица 15"
+          class="address-input"
+          id="end-adr"
+          value="Анапа, Ленина 30"
+        />
+        <a
+          href="#"
+          class="menuItem"
+          ng-click="$ctrl.findCoordByAdr($event, 'end-adr')"
+        >
+          Искать
+        </a>
+        <a
+          href="#"
+          class="menuItem"
+          ng-click="$ctrl.findCoordOnMap($event, 'end-adr')"
+        >
+          На карте
+        </a>
+      </div>
+      <div class="row">
+        <span id="end-adr__coords"></span>
+      </div>
+    </div>
+    <div class="row col-12">
+      <div class="col-6">
+        <div class="row col-12">
+          <span id="route-build-result" />
+        </div>
+        <div class="row col-12">
+          <span id="sectors-route-result" />
+        </div>
+      </div>
+      <div class="col-6">
+        <a
+          id="new-order-from-route-button"
+          href="#"
+          class="state menuItem hidden_button"
+          ng-click="$ctrl.state($event)"
+          data-state0="Arhivnyi"
+          data-state0-val="0"
+          data-state1="Zavershyon"
+          data-state1-val="0"
+          data-aspect0="newOrderFromRoute"
+          >Создать заказ из расчета</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-1 smallRightPadding">
+    <a
+      href="#"
+      class="state menuItem"
+      ng-click="$ctrl.state($event)"
+      data-state0="Arhivnyi"
+      data-state0-val="0"
+      data-state1="Zavershyon"
+      data-state1-val="0"
+      >Рабочие</a
+    >
+  </div>
+  <div class="col-1">
+    <a
+      href="#"
+      class="state aspect_inject_deleteOrder menuItem"
+      ng-click="$ctrl.state($event)"
+      data-state0="Arhivnyi"
+      data-state0-val="1"
+      data-state1="Zavershyon"
+      data-state1-val="1"
+      >Архив</a
+    >
+  </div>
+  <div class="col-1">
+    <a
+      href="#"
+      class="state menuItem"
+      ng-click="$ctrl.state($event)"
+      data-state0="Arhivnyi"
+      data-state0-val="0"
+      data-state1="Zavershyon"
+      data-state1-val="0"
+      data-aspect0="newOrder"
+      >Добавить</a
+    >
+  </div>
+  <div class="col-3">
+    <a
+      href="#"
+      class="state menuItem"
+      ng-click="$ctrl.showMapOrderAddForm($event)"
+      >Добавить на карте</a
+    >
+  </div>
+  <div class="col-1" data-ctx0="app-state">
+    <a
+      href="#"
+      class="state menuItem"
+      ng-click="$ctrl.state($event, $ctrl.refreshOrdersCallback);"
+      data-state0="orders"
+      data-state0-val="1"
+      data-state1="drivers"
+      data-state1-val="1"
+      data-state2="orders_coordinates"
+      data-state2-val="1"
+      >Обновить</a
+    >
+  </div>
+  <div class="hide-text fixed-state-informer">
+    Есть изменения в таблице заказов
+  </div>
+</div>
+<div
+  data-ctx0="orders"
+  data-state0="ctx:userId"
+  data-state0-val="{{$ctrl.userId}}"
+>
+  <div class="row order-row" data-ctx0="order">
+    <div class="col-1 smallRightPadding">
+      <span style="min-width: 10px"> Номер </span>
+    </div>
+    <div class="col-2 smallPadding lightGreenDiv">
+      #Телефон, <br />#Абонентский номер, <br />#Время подачи,
+      <br />#Предварительный<br /><nobr>(без водителя)</nobr>
+    </div>
+    <div class="col-2 smallPadding">
+      #Район, <br />#Адрес подачи, <br />#Адрес окончания
+    </div>
+    <div class="col-1 smallPadding timeColBack">
+      #Время начала, <br />#Подтвержден адрес
+    </div>
+    <div class="col-1 smallPadding lightYellowDiv">
+      #Позывной,<br />#отложить исполнение,<br />#на дату
+    </div>
+    <div class="col-1 smallPadding">
+      #Стоимость, <br />#предварит., <br />#бонусы
+    </div>
+    <div class="col-2 smallPadding limeGreenDiv">
+      #Сектор, <br /><nobr>#~[Найденный сектор]</nobr>
+    </div>
+    <div class="col-2 smallPadding">#Статус</div>
+    <!--<div class="col-1 smallPadding">
+
+		</div>-->
+  </div>
+  <order-detail
+    ng-repeat="hero in $ctrl.list"
+    hero="hero"
+    depends="$ctrl.depends"
+    on-delete="$ctrl.deleteHero(hero)"
+    on-update="$ctrl.updateHero(hero, prop, value)"
+  >
+  </order-detail>
+</div>

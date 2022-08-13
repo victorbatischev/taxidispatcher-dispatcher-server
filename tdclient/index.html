@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html ng-app="gemStore">
+  <head>
+    <title>Диспетчер таксопарка</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" href="css/sputnik_maps_bundle.min.css" />
+    <link rel="stylesheet" href="css/jquery.datetimepicker.min.css" />
+    <style type="text/css">
+      #map1 {
+        height: 400px;
+      }
+    </style>
+    <style>
+      .icon-w12h20 {
+        width: 25px;
+        height: 25px;
+      }
+      .leaflet-popup-content {
+        margin: 2px 2px !important;
+      }
+    </style>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script
+      type="text/javascript"
+      src="js/jquery.datetimepicker.full.js"
+    ></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/products.js"></script>
+    <script type="text/javascript" src="js/app.js?r=r5ff4"></script>
+    <script type="text/javascript" src="js/socket.js"></script>
+    <script src="js/orderList.js"></script>
+    <script src="js/driversMap.js"></script>
+    <script src="js/orderDetail.js"></script>
+    <script src="js/editField.js"></script>
+    <script src="js/sputnik_maps_bundle.min.js"></script>
+  </head>
+
+  <body ng-controller="IndexController as indexCtrl">
+    <!--  Store Header
+		<body ng-app="heroApp">
+			<hero-list></hero-list>
+		</body>
+		-->
+    <header>
+      <h4 class="text-center bg-info text-white noBottomMargin">
+        Диспетчер таксопарка
+      </h4>
+    </header>
+
+    <div class="authSubmit">
+      <input id="login" value="" />
+      <input id="psw" type="password" value="" />
+      <input id="code" type="password" value="" />
+      <a href="#" ng-click="indexCtrl.authSubmit()">Войти</a>
+    </div>
+
+    <!--<div class="list-group">
+			<div class="list-group-item" ng-repeat="product in store.products">
+				<h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
+
+				Location: <editable-field field-value="product.location" field-type="text" on-update="$ctrl.update('location', value)"></editable-field><br>
+				<product-gallery></product-gallery>
+
+				<product-tabs></product-tabs>
+			</div>
+		</div>-->
+
+    <drivers-map user-id="-1"></drivers-map>
+    <order-list user-id="-1"></order-list>
+
+    <script type="text/javascript">
+      var params = window.location.search
+        .replace('?', '')
+        .split('&')
+        .reduce(function (p, e) {
+          var a = e.split('=')
+          p[decodeURIComponent(a[0])] = decodeURIComponent(a[1])
+          return p
+        }, {})
+
+      params.p1 && $('.authSubmit #login').val(params.p1)
+      params.p2 && $('.authSubmit #psw').val(params.p2)
+      params.pcode && $('.authSubmit #code').val(params.pcode)
+    </script>
+  </body>
+</html>

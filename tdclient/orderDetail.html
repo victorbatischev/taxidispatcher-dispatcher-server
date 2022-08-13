@@ -1,0 +1,246 @@
+<hr class="orderTableDivider" />
+<div>
+  <div class="row order-row" data-ctx0="order">
+    <div class="col-1 smallRightPadding rightBorderedDiv">
+      <img src="images/AddingCustBitmap.png" />
+      <span style="min-width: 10px"> №{{$ctrl.hero.Nomer_zakaza}} </span>
+    </div>
+    <div class="col-2 smallPadding rightBorderedDiv lightGreenDiv">
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Telefon_klienta"
+        field-name="Telefon_klienta"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('phone', value)"
+        field-placeholder=" '0000000000'"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Adres_okonchaniya_zayavki"
+        field-name="Adres_okonchaniya_zayavki"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('Adres_okonchaniya_zayavki', value)"
+        field-placeholder=" 0"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Data_predvariteljnaya"
+        field-name="Data_predvariteljnaya"
+        field-type="datetime"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('Data_predvariteljnaya', value)"
+        field-placeholder=" '00-00-0000 00:00'"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Predvariteljnyi"
+        field-name="Predvariteljnyi"
+        field-hide-value="$ctrl.hero.Predvariteljnyi"
+        field-type="checkbox"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('Predvariteljnyi', value)"
+        data-state0="otpravlyaetsya"
+        data-state0-val="ctx:userId"
+        field-label="''"
+        field-styles="' checkbox-primary checkbox-sm'"
+      ></edit-field>
+    </div>
+    <div class="col-2 smallPadding rightBorderedDiv">
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.order_district"
+        field-name="order_district"
+        field-hide-value="$ctrl.hero.district_id"
+        field-hide-name="district_id"
+        field-type="select"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.updateList({'district_id': value})"
+        depends="$ctrl.depends.order_district"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Adres_vyzova_vvodim"
+        field-name="Adres_vyzova_vvodim"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('adres', value)"
+        data-state0="adr_manual_set"
+        data-state0-val="{{$ctrl.hero.set_manual_addr_change ? 1 : $ctrl.hero.adr_manual_set}}"
+        field-placeholder="'улица дом'"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.end_adres"
+        field-name="end_adres"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('end_adres', value)"
+        field-placeholder="'улица дом'"
+      ></edit-field>
+    </div>
+    <div class="col-1 smallPadding rightBorderedDiv timeColBack">
+      {{$ctrl.hero.start_dt}} {{$ctrl.hero.on_place ? '(на точке ' +
+      $ctrl.hero.Data_na_tochke.substr(11, 5) + ')' : ''}}
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.adr_manual_set"
+        field-name="adr_manual_set"
+        field-hide-value="$ctrl.hero.adr_manual_set"
+        field-type="checkbox"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('adr_manual_set', value)"
+        data-state0="otpravlyaetsya"
+        data-state0-val="ctx:userId"
+        field-styles="'checkbox-success checkbox-inline checkbox-lg'"
+      ></edit-field>
+    </div>
+    <div class="col-1 smallPadding rightBorderedDiv lightYellowDiv">
+      {{$ctrl.hero.REMOTE_SET == 25 ? ((($ctrl.hero.Pozyvnoi_ustan == 0 ||
+      $ctrl.hero.REMOTE_DRNUM == $ctrl.hero.Pozyvnoi_ustan) ? '' : '' +
+      $ctrl.hero.Pozyvnoi_ustan) + '->(хочет)' + $ctrl.hero.REMOTE_DRNUM) : ''
+      }} {{($ctrl.hero.REMOTE_SET > 0 && $ctrl.hero.REMOTE_SET < 8) ? '~' : ''}}
+      {{($ctrl.hero.REMOTE_SYNC == 1 && $ctrl.hero.REMOTE_SET == 8) ? '?' : ''}}
+      {{($ctrl.hero.REMOTE_SET < 0 || $ctrl.hero.REMOTE_SET == 13) ? '!' : ''}}
+
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.Pozyvnoi_ustan"
+        field-name="Pozyvnoi_ustan"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('Pozyvnoi_ustan', value)"
+        data-state0="adr_manual_set"
+        data-state0-val="1"
+        field-placeholder="0"
+      ></edit-field>
+      <hr />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.is_early"
+        field-name="is_early"
+        field-hide-value="$ctrl.hero.is_early"
+        field-type="checkbox"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('is_early', value)"
+        data-state0="otpravlyaetsya"
+        data-state0-val="ctx:userId"
+        field-label="''"
+        field-styles="' checkbox-info checkbox-sm'"
+        disabled="' disabled '"
+      ></edit-field>
+      <hr style="margin-top: 20px" />
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.early_date"
+        field-name="early_date"
+        field-type="datetime"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('early_date', value)"
+        field-placeholder=" '00-00-0000 00:00'"
+      ></edit-field>
+    </div>
+    <!--{{$ctrl.hero.Pozyvnoi_ustan}} -->
+    <div class="col-1 smallPadding rightBorderedDiv">
+      {{$ctrl.hero.direct_sect_id > 0 ? ('(->' + $ctrl.hero.dir_sect + ')') :
+      ''}} {{$ctrl.hero.REMOTE_SET == 26 ? ((($ctrl.hero.REMOTE_SUMM ==
+      $ctrl.hero.Uslovn_stoim) ? '->' : $ctrl.hero.Uslovn_stoim + '<-') +
+      $ctrl.hero.REMOTE_SUMM) : '' + $ctrl.hero.Uslovn_stoim }}
+
+      <hr />
+      Предв.стоим.:<br /><edit-field
+        class="editField"
+        field-value="$ctrl.hero.prev_price"
+        field-name="prev_price"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('prev_price', value)"
+        field-placeholder="0"
+        data-state0="otpravlyaetsya"
+        data-state0-val="ctx:userId"
+      ></edit-field>
+      руб.
+
+      <hr />
+      Исп.бонус:<br /><edit-field
+        class="editField"
+        field-value="$ctrl.hero.bonus_use"
+        field-name="bonus_use"
+        field-type="text"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.update('bonus_use', value)"
+        field-placeholder="0"
+        data-state0="otpravlyaetsya"
+        data-state0-val="ctx:userId"
+      ></edit-field>
+
+      {{$ctrl.hero.fixed_summ > 0 ? (' время: ' + $ctrl.hero.fixed_summ + '
+      руб.') : ''}} {{$ctrl.hero.tm_summ > 0 ? (' расст.: ' +
+      $ctrl.hero.tm_summ) : ' руб.'}} {{$ctrl.hero.fixed_time > 0 ? (' время: '
+      + $ctrl.hero.fixed_time + 'мин.') : ''}} {{$ctrl.hero.tm_distance > 0 ? ('
+      расст.: ' + $ctrl.hero.tm_distance + 'км.') : ''}}
+    </div>
+    <div
+      class="col-2 smallPadding rightBorderedDiv limeGreenDiv"
+      ng-if="$ctrl.hero.vypolnyaetsya_voditelem > 0"
+    >
+      {{$ctrl.hero.order_sect}}
+      <hr />
+      {{$ctrl.hero.det_sect_name ? ('~' + $ctrl.hero.det_sect_name) : ''}}
+    </div>
+    <div
+      class="col-2 smallPadding rightBorderedDiv limeGreenDiv"
+      ng-if="$ctrl.hero.vypolnyaetsya_voditelem <= 0"
+    >
+      <edit-field
+        class="editField"
+        field-value="$ctrl.hero.order_sect"
+        field-name="order_sect"
+        field-hide-value="$ctrl.hero.SECTOR_ID"
+        field-hide-name="SECTOR_ID"
+        field-type="select"
+        field-id="{{$ctrl.hero.BOLD_ID}}"
+        on-update="$ctrl.updateList({'SECTOR_ID': value, 'adr_manual_set': 1, 'REMOTE_SET': 2, 'Priority_counter': 0})"
+        depends="$ctrl.depends.order_sect"
+        data-state0="adr_manual_set"
+        data-state0-val="1"
+        data-state1="REMOTE_SET"
+        data-state1-val="2"
+        data-state2="Priority_counter"
+        data-state2-val="0"
+        data-state3="otpravlyaetsya"
+        data-state3-val="ctx:userId"
+      ></edit-field>
+      <hr />
+      {{$ctrl.hero.det_sect_name ? ('~' + $ctrl.hero.det_sect_name) : ''}}
+    </div>
+    <div class="col-2 smallPadding rightBorderedDiv">
+      <!--<edit-field field-value="$ctrl.hero.order_sect"  field-name="order_sect" field-type="text" on-update="$ctrl.update('sector', value)"></edit-field>-->
+      {{$ctrl.hero.remoteOrderStatusInfo}} {{$ctrl.hero.tmhistory ? ('таксометр:
+      ' + $ctrl.hero.tmhistory) : ''}}
+      <a
+        class="state actionItem rightOpacityButton"
+        href="#"
+        ng-click="$ctrl.state($event)"
+        data-injected-aspect0="deleteOrder"
+        data-state0-val="{{$ctrl.hero.BOLD_ID}}"
+        >В архив</a
+      >
+    </div>
+    <!--<div class="col-1 smallPadding">
+
+		</div>-->
+
+    <!-- Order Tabs  -->
+    <div class="col-12">
+      <order-tabs></order-tabs>
+    </div>
+  </div>
+</div>

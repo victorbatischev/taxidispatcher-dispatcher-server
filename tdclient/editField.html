@@ -1,0 +1,137 @@
+<span ng-switch="$ctrl.editMode" class="editScope">
+  <div class="input-group">
+    <select
+      ng-if="$ctrl.fieldType == 'select'"
+      ng-switch-when="true"
+      ng-model="$ctrl.fieldHideValue"
+      class="editFieldInput state"
+      data-state0="id"
+      data-state0-val="{{$ctrl.fieldId}}"
+      data-state1="{{$ctrl.fieldHideName}}"
+      data-state1-val="{{$ctrl.fieldHideValue}}"
+      data-state2="otpuskaetsya_dostepcherom"
+      data-state2-val="ctx:userId"
+    >
+      <option
+        ng-repeat="item in $ctrl.depends"
+        value="{{(item.BOLD_ID.length ? item.BOLD_ID[0] : item.BOLD_ID) || (item.id.length ? item.id[0] : item.id)
+				|| (item.ID.length ? item.ID[0] : item.ID)}}"
+      >
+        {{item.Naimenovanie || item.name || item.POLICY_NAME}}
+      </option>
+    </select>
+    <div class="input-group-append">
+      <a
+        href="#"
+        ng-if="$ctrl.fieldType == 'select'"
+        ng-switch-when="true"
+        ng-click="$ctrl.selectChange($event);"
+        ><img class="editIcon" src="/images/valid.png"
+      /></a>
+    </div>
+  </div>
+  <div class="input-group">
+    <input
+      ng-if="$ctrl.fieldType == 'text'"
+      ng-switch-when="true"
+      type="{{$ctrl.fieldType}}"
+      ng-model="$ctrl.fieldValue"
+      ng-keypress="$ctrl.keyPress($event)"
+      class="editFieldInput state"
+      data-state0="id"
+      data-state0-val="{{$ctrl.fieldId}}"
+      data-state1="{{$ctrl.fieldName}}"
+      data-state1-val="{{$ctrl.fieldValue}}"
+      data-state2="otpuskaetsya_dostepcherom"
+      data-state2-val="ctx:userId"
+      placeholder="{{$ctrl.fieldPlaceholder}}"
+    />
+    <div class="input-group-append">
+      <a
+        href="#"
+        ng-if="$ctrl.fieldType == 'text'"
+        ng-switch-when="true"
+        ng-click="$ctrl.keyPress($event, true);"
+        ><img class="editIcon" src="/images/valid.png"
+      /></a>
+    </div>
+  </div>
+
+  <span ng-if="$ctrl.fieldType == 'checkbox'">{{$ctrl.fieldLabel}}</span>
+  <div class="checkbox {{$ctrl.fieldStyles}}">
+    <input
+      ng-if="$ctrl.fieldType == 'checkbox' && !$ctrl.fieldValue"
+      type="{{$ctrl.fieldType}}"
+      ng-click="$ctrl.checkboxChange($event);"
+      class="editFieldInput state styled"
+      data-state0="id"
+      data-state0-val="{{$ctrl.fieldId}}"
+      data-state1="{{$ctrl.fieldName}}"
+      data-state1-val="1"
+      data-state2="otpuskaetsya_dostepcherom"
+      data-state2-val="ctx:userId"
+      id="{{$ctrl.fieldName + '_' + $ctrl.fieldId}}"
+      {{$ctrl.disabled}}
+    />
+
+    <input
+      ng-if="$ctrl.fieldType == 'checkbox' && $ctrl.fieldValue"
+      type="{{$ctrl.fieldType}}"
+      ng-click="$ctrl.checkboxChange($event);"
+      class="editFieldInput state styled"
+      data-state0="id"
+      data-state0-val="{{$ctrl.fieldId}}"
+      data-state1="{{$ctrl.fieldName}}"
+      data-state1-val="0"
+      data-state2="otpuskaetsya_dostepcherom"
+      data-state2-val="ctx:userId"
+      checked
+      id="{{$ctrl.fieldName + '_' + $ctrl.fieldId}}"
+      {{$ctrl.disabled}}
+    />
+    <label
+      ng-if="$ctrl.fieldType == 'checkbox'"
+      for="{{$ctrl.fieldName + '_' + $ctrl.fieldId}}"
+    >
+      {{$ctrl.fieldLabel}}
+    </label>
+  </div>
+
+  <div
+    class="input-group"
+    ng-if="$ctrl.fieldType == 'datetime'"
+    ng-switch-when="true"
+  >
+    <input
+      ng-model="$ctrl.fieldValue"
+      type="text"
+      class="editFieldInput state datetimepicker"
+      placeholder="{{$ctrl.fieldPlaceholder}}"
+      data-state0="id"
+      data-state0-val="{{$ctrl.fieldId}}"
+      data-state1="{{$ctrl.fieldName}}"
+      data-state1-val="{{$ctrl.fieldValue}}"
+    />
+
+    <span class="input-group-append">
+      <a href="#" ng-click="$ctrl.dateChange($event);">
+        <img class="editIcon" src="/images/valid.png" />
+      </a>
+    </span>
+  </div>
+
+  <a
+    href="#"
+    ng-if="$ctrl.fieldType !== 'checkbox'"
+    ng-click="$ctrl.handleModeChange($event);"
+  >
+    <img ng-switch-default class="editIcon" src="/images/edit1.png" />
+    <span ng-if="$ctrl.fieldType != 'datetime'" ng-switch-default
+      >{{$ctrl.fieldValue}}</span
+    >
+    <span ng-if="$ctrl.fieldType == 'datetime'" ng-switch-default
+      >{{$ctrl.fieldValue.replace('T', ' ').replace('.', ' ').replace('Z',
+      '')}}</span
+    >
+  </a>
+</span>
